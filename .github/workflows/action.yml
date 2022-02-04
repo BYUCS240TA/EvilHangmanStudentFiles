@@ -11,6 +11,9 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
 
+      - name: set-script-executable
+        run: chmod +x ./scripts/zip.sh
+
       - name: cmdline-driver-packaging
         run: ./scripts/zip.sh
 
@@ -22,4 +25,4 @@ jobs:
           automatic_release_tag: "latest"
           prerelease: false
           files: |
-            temp/SpellCorrectorStudentFiles.zip
+            temp/EvilHangmanStudentFiles.zip

@@ -1,0 +1,25 @@
+name: test-and-release
+
+on: push
+
+jobs:
+  make-zip:
+    name: "Test and Release"
+    runs-on: "ubuntu-latest"
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: cmdline-driver-packaging
+        run: ./scripts/zip.sh
+
+      - name: make-release
+        if: github.ref == 'refs/heads/main'
+        uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: false
+          files: |
+            temp/SpellCorrectorStudentFiles.zip
